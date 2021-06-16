@@ -21,7 +21,7 @@ resource "aws_instance" "assessment-ec2" {
         Talent = "739343363997"
     }
 
-    user_data = "${file("./scripts/install-kubernetes.sh")}"
+    #user_data = "${file("./scripts/install-kubernetes.sh")}"
 
     depends_on = [
       module.public_subnets
@@ -94,6 +94,13 @@ resource "aws_security_group" "allow-ssh" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress = [ {
+    description = "value"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = [ "0.0.0.0/0" ]
+  } ]
 
   egress {
     from_port   = 0
